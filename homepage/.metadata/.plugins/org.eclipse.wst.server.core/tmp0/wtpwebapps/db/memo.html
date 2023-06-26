@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form id ="f">
+<input type="button" value="메모저장" onclick="abc()">
+</form>
+</body>
+<script>
+function abc() {
+	f.method = "post";
+	f.action = "./dbconnect.do";
+	f.submit();
+}
+</script>
+</html>

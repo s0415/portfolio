@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 return3 (삼항연산)</title>
+</head>
+<script>
+	var a = 10;
+	var result = (a>=10) ? "10보다 큽니다." : "10 미만 숫자입니다.";
+	console.log(result);
+	
+	var bb="hong";
+	var cc="a1234";
+	/*
+	function abc(z1,z2){
+		return "loginok";
+	}	
+	*/
+	abc => {
+		console.log("text");
+			
+	}
+	/*
+	화살표 함수 (return형태)
+	*/
+	var login = (bb,cc)=>{
+		return "loginok";
+	}
+
+	var r = login(bb,cc);
+	console.log(r);
+	
+	/*화살표 함수로 절삭*/
+	var fm = (money) =>{
+		var sum = Math.floor(money/10)*10;
+		return sum;
+	}
+	var total = fm(14569);
+	console.log(total);
+</script>
+<body>
+
+</body>
+</html>

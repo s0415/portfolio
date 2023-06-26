@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript node 활용1 </title>
+</head>
+<body>
+	<ul id="box">
+		<li>공지사항 1</li>
+		<li>공지사항 2</li>
+		<li>공지사항 3</li>
+		<li>공지사항 4</li>
+		<li>공지사항 5</li>
+	</ul>
+	<input type="button" value="노드확인" onclick="node.nodecheck()">
+	<input type="button" value="노드추가1" onclick="node.insert_node()">
+	<input type="button" value="노드추가2" onclick="node.before_node()">
+	<input type="button" value="노드삭제" onclick="node.delete_node()">
+	<input type="button" value="노드복제 붙여넣기" onclick="node.copy_node()">
+</body>
+<script>
+	var node = new abc();
+	function abc(){
+		var box = document.getElementById("box");
+		
+		this.nodecheck = function () {
+			//var chnode = box.childNodes;	//javascript dom, node를 생성하여 출력하였을 경우
+			//var ea = box.childNodes.length;
+			var chnode2 = box.children;		//직접 코드를 생성 또는 javascript dom, node를 생성하였을 경우
+			var ea = box.children.length;
+			console.log(ea);
+		}
+		
+		//동적으로 태그를 생성
+		this.insert_node = function () {
+			//innerHTML : 태그로 생성(DOM)
+			//append : 무조건 문자화로 적용합니다.(NODE)		 - 부모기준 맨 마지막에 생성
+			//<li><span>공지사항5</span></li>
+			
+			
+			//html.className = "licss";
+			//html.id = "liid";	//html.value="aa"; <<input type인 경우
+			var html = document.createElement("li");
+			var html2 = document.createElement("span");
+			var text = document.createTextNode("공지사항5");
+			
+			//html.innerHTML = "<span>공지사항5</span>";
+			html2.append(text);
+			html.append(html2);
+			box.append(html);
+		}
+		
+		this.before_node = function () {
+			
+			var html = document.createElement("li");
+			var html2 = document.createElement("span");
+			var text = document.createTextNode("공지사항5");
+				
+			html2.append(text);
+			html.append(html2);
+			box.insertBefore(html,box.children[0]);	
+			//insertBefore(삽입할 노드,부모기준.자식노드번호);
+			}
+		
+		this.delete_node = function () {
+			//box.remove();  => 해당 노드 전체삭제(부모삭제)
+			//box.removeChild(); =>부모노드 중 자식노드에 한해서 삭제
+			
+			//첫번째 노드만 삭제
+			//box.removeChild(box.firstChild);		//직접생성 text 노드 삭제 후 본 태그를 삭제
+			//box.removeChild(box.firstElementChild);	//태그만 삭제(text node 무시)
+			
+			//마지막 노드만 삭제
+			box.removeChild(box.lastElementChild);
+		}
+		
+		this.copy_node = function () {
+			//var tag = box.cloneNode();	//부모기준으로 복사. 단, 자식노드는 복사하지 않음
+			/*
+			//첫 태그를 맨 뒤로 복사
+			var tag = box.firstElementChild.cloneNode(true);
+			//cloneNode() : 기본 false => 태그만 복사, 내용X	/true =>	태그 및 내용까지 모두 복사
+			console.log(tag);
+			box.append(tag);
+			*/
+			
+			/*
+			//마지막태그를 맨앞으로 복사
+			var tag = box.lastElementChild.cloneNode(true);
+			console.log(tag);
+			box.insertBefore(tag,box.children[0]);
+			*/
+			
+			//복사 후 붙여넣기, 복사한 태그 삭제
+			var tag = box.lastElementChild.cloneNode(true);	//복사
+			box.removeChild(box.lastElementChild);			//삭제
+			box.insertBefore(tag,box.firstElementChild);	//복사한 노드 추가
+			
+		}
+		
+	}
+</script>
+</html>

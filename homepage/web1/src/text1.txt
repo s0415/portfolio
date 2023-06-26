@@ -1,0 +1,56 @@
+create table corp(
+cidx int not null auto_increment,
+cname char(100) not null,		-택배사이름
+cuse enum('Y','N') not null default 'Y',	-거래여부?
+primary key(cidx),
+unique key(cname)
+);
+
+//A : 배송 대기	B:배송중		C:배송완료		D:배송취소		E:배송분실
+
+create table ship(
+sidx int not null auto_increment,
+state char(1) not null,  -배송상태코드
+sname varchar(100) not null,  -배송상태한글
+primary key(sidx),
+unique key(state)
+);
+
+insert into ship values ('0','A','배송대기');
+insert into ship values ('0','B','배송중');
+insert into ship values ('0','C','배송완료');
+insert into ship values ('0','D','배송취소');
+insert into ship values ('0','E','배송분실');
+
+
+create table delivery(
+didx int not null auto_increment,
+cidx char(2) not null,
+dno char(15) not null,
+dto varchar(100) not null,
+dfrom varchar(100) not null,
+dinfo varchar(245) not null,
+day datetime not null default '0001-01-01 00:00:00',
+darea varchar(10) not null,
+state char(1) not null,
+primary key(didx)
+);
+
+/*
+응용문제1
+택배사 (한글), 운송장번호, 보내는분
+
+select b.cname,a.dno,a.dfrom from delivery as a join corp as b where a.cidx=b.cidx;
+
+응용문제2
+택배사 (한글), 운송장번호, 배송상태(한글)
+select b.cname,a.dno,c.sname from delivery as a join corp as b join ship as c where a.cidx=b.cidx and c.state=a.state;
+
+
+응용문제3
+배송상태가 '배송대기'인 리스트만 출력시킵니다.
+출력은 
+운송장번호,상품정보,현재위치,배송상태(한글)
+create view status_delay as select a.dno,a.dinfo,a.darea,b.sname from delivery as a join ship as b where a.state='A' and a.state=b.state;
+*/
+
